@@ -1,18 +1,7 @@
 from aiogram.types import Message, ChatType
 from aiogram.dispatcher.filters import BoundFilter
 
-from modules import local_config
 from modules.database import Database
-
-
-class AdminFilter(BoundFilter):
-    key = 'is_admin'
-
-    def __init__(self, is_admin: bool):
-        self.is_admin = is_admin
-
-    async def check(self, obj: Message) -> bool:
-        return (obj.from_user.id in local_config.admin_ids) == self.is_admin
 
 
 class PrivateFilter(BoundFilter):

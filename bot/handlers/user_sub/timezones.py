@@ -27,9 +27,11 @@ class UserTimezoneHandlers:
 
     async def ask_timezone(self, message: types.Message, add_cancel=True):
         await SettingStates.ask_timezone.set()
-        reply_kb = keyboards.reply_keyboard([["UTC", "MSK", "EET"],
-                                             ["\U0001F9ED Отправить местоположение"],
-                                             ["\u274C Отменить" if add_cancel else []]], location_idx=1)
+        layout = [["UTC", "MSK", "EET"],
+                  ["\U0001F9ED Отправить местоположение"]]
+        if add_cancel:
+            layout.append(["\u274C Отменить"])
+        reply_kb = keyboards.reply_keyboard(layout, location_idx=1)
         utc_time = datetime.now(tz=pytz.utc).strftime("%H:%M")
         msk_time = datetime.now(tz=pytz.timezone('Europe/Moscow')).strftime("%H:%M")
         eest_time = datetime.now(tz=pytz.timezone('EET')).strftime("%H:%M")

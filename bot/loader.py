@@ -1,9 +1,9 @@
 import asyncio
 
 from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
-from bot.utils.filters import AdminFilter, PrivateFilter, RegisteredFilter
+from bot.utils.filters import PrivateFilter, RegisteredFilter
 from bot.handlers.user import UserHandlers
 
 from modules import local_config
@@ -11,17 +11,15 @@ from modules.deadlines import deadlines_loop
 
 
 def register_filters(dp: Dispatcher):
-    dp.filters_factory.bind(AdminFilter)
     dp.filters_factory.bind(PrivateFilter)
     dp.filters_factory.bind(RegisteredFilter)
 
 
 async def run():
+    storage = MemoryStorage()
+
     bot = Bot(token=local_config.cfg['App']['bot_token'], parse_mode='HTML')
-    dp = Dispatcher(bot, storage=RedisStorage2(
-        local_config.cfg['Redis']['host'],
-        password=local_config.cfg['Redis']['password']
-    ))
+    dp = Dispatcher(bot, storage=storage)
     register_filters(dp)
 
     user_handlers = UserHandlers(bot, dp)

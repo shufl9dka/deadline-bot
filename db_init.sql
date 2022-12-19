@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.deadlines
     deadline_id serial,
     user_id numeric NOT NULL,
     title text NOT NULL,
-    deadline time without time zone NOT NULL,
+    deadline timestamp without time zone NOT NULL,
     repeat_in integer,
     remind_in integer,
     done boolean NOT NULL DEFAULT false,

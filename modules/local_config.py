@@ -10,9 +10,5 @@ cfg = {
     },
     "App": {
         "bot_token": os.environ["BOT_TOKEN"]
-    },
-    "Redis": {
-        "host": os.environ["REDIS_HOST"],
-        "password": os.environ["REDIS_PASSWORD"]
     }
 }

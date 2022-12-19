@@ -20,7 +20,7 @@ class UserHandlers:
         self.hide_msg_btn = CallbackData('HIDE_ME')
 
         dp.register_message_handler(self.user_start, commands=["start"], state=None, is_private=True)
-        dp.register_message_handler(self.cancel_operation, lambda msg: msg.text in ["\u274C Отменить", '/cancel'], state='*',  is_private=True)
+        dp.register_message_handler(self.cancel_operation, lambda msg: msg.text in ["\u274C Отменить", '/cancel'], state='*',  is_private=True, user_registered=True)
         self.timezone_handlers = UserTimezoneHandlers(bot, dp)
         dp.register_message_handler(
             self.timezone_handlers.ask_timezone,
@@ -50,7 +50,7 @@ class UserHandlers:
         await self.bot.send_message(message.from_user.id, "\U0001F44B Привет! Перед тем, как пользоваться ботом, нужно указать свой часовой пояс. Это необходимо для комфортной работы со временем твоих дедлайнов.")
 
         await self.bot.send_chat_action(message.from_user.id, 'typing')
-        await asyncio.sleep(2)
+        await asyncio.sleep(1.8)
         await self.timezone_handlers.ask_timezone(message, add_cancel=False)
 
     @staticmethod
