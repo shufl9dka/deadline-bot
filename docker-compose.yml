@@ -5,10 +5,13 @@ services:
     environment:
       POSTGRES_DB: "deadline_bot_db"
       POSTGRES_PASSWORD: POSTGRES_PASSWORD
+    expose:
+      - "34175"
     ports:
-      - "5432:5432"
+      - "34175:34175"
     volumes:
       - ./db_init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: -p 34175
 
   app:
     build: .
